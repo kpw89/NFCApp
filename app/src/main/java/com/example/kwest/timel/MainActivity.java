@@ -45,10 +45,10 @@ public class MainActivity extends AppCompatActivity {
         JsonAPI jsonAPI = retrofit.create(JsonAPI.class);               //pass json api
 
 //CALL TO SERVER
-        Call<List<MockJson>> call = jsonAPI.getData();
-        call.enqueue(new Callback<List<MockJson>>() {
+        Call<MockJson> call = jsonAPI.getData();
+        call.enqueue(new Callback<MockJson>() {
             @Override                                                       //MockModel
-            public void onResponse(Call<List<MockJson>> call, Response<List<MockJson>> response) {
+            public void onResponse(Call<MockJson> call, Response<MockJson> response) {
 
                 if(!response.isSuccessful()){
                     Toast.makeText(getApplicationContext(),"Code "+response.code() ,Toast.LENGTH_SHORT ).show();
@@ -63,13 +63,18 @@ public class MainActivity extends AppCompatActivity {
                     content+="title "+ mockModel.getTitle() +"\n";
                     content+="body "+mockModel.getBody()+"\n\n";
                     tv_test_data.append(content);
-                }
-                */
+                }*/
 
+                MockJson data_from_server = response.body();
+                String content="";
+                content+= data_from_server.getName1();
+                content+= data_from_server.getName2();
+
+                    tv_test_data.setText(content);
             }
 
             @Override
-            public void onFailure(Call<List<MockJson>> call, Throwable t) {
+            public void onFailure(Call<MockJson> call, Throwable t) {
                 if(t instanceof IOException){
                     Toast.makeText(getApplicationContext(), "network failure",Toast.LENGTH_LONG ).show();
                     tv_test_data.setText(t.getMessage());

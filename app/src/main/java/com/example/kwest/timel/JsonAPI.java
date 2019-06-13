@@ -10,8 +10,8 @@ import retrofit2.http.GET;
 
 public interface JsonAPI {
 
-    //alt rest/jsonTest
+    //Call<List<Post>>
     @GET("LogWork/jsonTest")
-    Call<List<MockJson>> getData();
+    Call<MockJson> getData();
 
 }
