@@ -5,8 +5,8 @@ import java.util.List;
 
 public class Employee {
 
-    private ArrayList<TimeLog> timelog = new ArrayList<>();
-    String str_Name;
+    private ArrayList<TimeLog> timelog;
+    private String str_Name;
 
     public String getStr_Name() {
         return str_Name;

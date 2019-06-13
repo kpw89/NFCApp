@@ -10,6 +10,7 @@ import com.example.kwest.timel.Model.MockJson;
 import com.example.kwest.timel.Model.MockModel;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -47,10 +48,10 @@ public class MainActivity extends AppCompatActivity {
         JsonAPI jsonAPI = retrofit.create(JsonAPI.class);               //pass json api
 
 //CALL TO SERVER
-        Call<Map<String,Employee>> call = jsonAPI.getData();
-        call.enqueue(new Callback<Map<String,Employee>>() {
+        Call<MockJson> call = jsonAPI.getData();
+        call.enqueue(new Callback<MockJson>() {
             @Override                                                       //MockModel
-            public void onResponse(Call<Map<String,Employee>> call, Response<Map<String,Employee>> response) {
+            public void onResponse(Call<MockJson> call, Response<MockJson> response) {
 
                 if(!response.isSuccessful()){
                     Toast.makeText(getApplicationContext(),"Code "+response.code() ,Toast.LENGTH_SHORT ).show();
@@ -70,16 +71,16 @@ public class MainActivity extends AppCompatActivity {
                     tv_test_data.append(content);
                 }*/
 
-              /*  MockJson data_from_server = response.body();
+                MockJson data_from_server = response.body();
                 String content="";
                 content+= data_from_server.getName1();
                 content+= data_from_server.getName2();
 
-                    tv_test_data.setText(content); */
+                    tv_test_data.setText(content);
             }
 
             @Override
-            public void onFailure(Call<Map<String,Employee>> call, Throwable t) {
+            public void onFailure(Call<MockJson> call, Throwable t) {
                 if(t instanceof IOException){
                     Toast.makeText(getApplicationContext(), "network failure",Toast.LENGTH_LONG ).show();
                     tv_test_data.setText(t.getMessage());
