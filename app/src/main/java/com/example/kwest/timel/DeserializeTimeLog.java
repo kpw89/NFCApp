@@ -14,7 +14,7 @@ public class DeserializeTimeLog implements JsonDeserializer<TimeLogString> {
 
     @Override
     public TimeLogString deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-        JsonElement timeLog = json.getAsJsonObject().get("timeLog");
-        return new Gson().fromJson(timeLog,TimeLogString.class );
+        JsonElement timeLogString = json.getAsJsonObject().get("timeLogString");
+        return new Gson().fromJson(timeLogString,TimeLogString.class );
     }
 }

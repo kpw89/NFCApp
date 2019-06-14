@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
                 //"https://jsonplaceholder.typicode.com/"
 
                 .baseUrl("http://192.168.188.21:8080/")         //base url
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(client.build())
                 .build();
 
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 //CALL TO SERVER
         Call<Employee> call = jsonAPI.getData();
         call.enqueue(new Callback<Employee>() {
-            @Override                                                       //MockModel
+            @Override
             public void onResponse(Call<Employee> call, Response<Employee> response) {
 
                 if(!response.isSuccessful()){
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 Employee map_data_from_server = response.body();
                 Employee em1 = map_data_from_server;
                 em1.getTimeLogString();
-                tv_test_data.setText(em1.getTimeLogString().getT_start());
+                tv_test_data.setText(em1.getTimeLogString().get(0).getT_start());
               /*  map_data_from_server.get("Emp 1").getTimeLog().setT_start(new Timestamp(System.currentTimeMillis()));
                 map_data_from_server.get("Emp 1").getTimeLog().setT_stop(new Timestamp(System.currentTimeMillis()));
                 String cnt =  map_data_from_server.get("Emp 1").getStr_Name()+"\n";
