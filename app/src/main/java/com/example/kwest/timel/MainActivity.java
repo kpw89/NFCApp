@@ -8,13 +8,17 @@ import android.widget.Toast;
 import com.example.kwest.timel.Model.Employee;
 import com.example.kwest.timel.Model.MockJson;
 import com.example.kwest.timel.Model.MockModel;
+import com.example.kwest.timel.Model.TimeLog;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
+import java.sql.Timestamp;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,32 +41,41 @@ public class MainActivity extends AppCompatActivity {
         client.connectTimeout(15,TimeUnit.SECONDS );
         client.readTimeout(15,TimeUnit.SECONDS );
         client.writeTimeout(15,TimeUnit.SECONDS );
+
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(TimeLog.class,new DeserializeTimeLog() )
+                .create();
+
         retrofit = new Retrofit.Builder()
                 //"https://jsonplaceholder.typicode.com/"
 
                 .baseUrl("http://192.168.188.21:8080/")         //base url
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(client.build())
                 .build();
 
         JsonAPI jsonAPI = retrofit.create(JsonAPI.class);               //pass json api
 
 //CALL TO SERVER
-        Call<MockJson> call = jsonAPI.getData();
-        call.enqueue(new Callback<MockJson>() {
+        Call<HashMap<String, Employee>> call = jsonAPI.getData();
+        call.enqueue(new Callback<HashMap<String, Employee>>() {
             @Override                                                       //MockModel
-            public void onResponse(Call<MockJson> call, Response<MockJson> response) {
+            public void onResponse(Call<HashMap<String, Employee>> call, Response<HashMap<String, Employee>> response) {
 
                 if(!response.isSuccessful()){
                     Toast.makeText(getApplicationContext(),"Code "+response.code() ,Toast.LENGTH_SHORT ).show();
                     return;
                 }
-           //     Map<String,Employee> data_from_server = response.body();
-           //  String cnt =  data_from_server.get("Emp 1").getStr_Name();
-           //     tv_test_data.setText(cnt);
+                Map<String,Employee> map_data_from_server = response.body();
+                map_data_from_server.get("Emp 1").getTimeLog().setT_start(new Timestamp(System.currentTimeMillis()));
+                map_data_from_server.get("Emp 1").getTimeLog().setT_stop(new Timestamp(System.currentTimeMillis()));
+                String cnt =  map_data_from_server.get("Emp 1").getStr_Name()+"\n";
+                 cnt += map_data_from_server.get("Emp 1").getTimeLog().getT_start().toString()+"\n";
+                cnt += map_data_from_server.get("Emp 1").getTimeLog().getT_stop().toString()+"\n";
+                tv_test_data.setText(cnt);
 /*
-                List<MockModel> data_from_server = response.body();
-                for(MockModel mockModel : data_from_server){
+                List<MockModel> map_data_from_server = response.body();
+                for(MockModel mockModel : map_data_from_server){
                     String content ="";
                     content+="userid "+ mockModel.getUserId() +"\n";
                     content+="id "+ mockModel.getId() +"\n";
@@ -71,16 +84,18 @@ public class MainActivity extends AppCompatActivity {
                     tv_test_data.append(content);
                 }*/
 
-                MockJson data_from_server = response.body();
+           /*     MockJson map_data_from_server = response.body();
                 String content="";
-                content+= data_from_server.getName1();
-                content+= data_from_server.getName2();
+                content+= map_data_from_server.getName1();
+                content+= map_data_from_server.getName2();
 
-                    tv_test_data.setText(content);
+                    tv_test_data.setText(content); */
+
+                tv_test_data.setText("asjdfkadsfjladskjf");
             }
 
             @Override
-            public void onFailure(Call<MockJson> call, Throwable t) {
+            public void onFailure(Call<HashMap<String, Employee>> call, Throwable t) {
                 if(t instanceof IOException){
                     Toast.makeText(getApplicationContext(), "network failure",Toast.LENGTH_LONG ).show();
                     tv_test_data.setText(t.getMessage());
