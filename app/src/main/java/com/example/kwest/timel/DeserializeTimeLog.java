@@ -13,7 +13,7 @@ public class DeserializeTimeLog implements JsonDeserializer<TimeLog> {
 
     @Override
     public TimeLog deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-        JsonElement timelog = json.getAsJsonObject().get("timeLog");
-        return new Gson().fromJson(timelog,TimeLog.class );
+        JsonElement timeLog = json.getAsJsonObject().get("timeLog");
+        return new Gson().fromJson(timeLog,TimeLog.class );
     }
 }

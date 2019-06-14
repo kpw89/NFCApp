@@ -67,12 +67,15 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
                 Map<String,Employee> map_data_from_server = response.body();
-                map_data_from_server.get("Emp 1").getTimeLog().setT_start(new Timestamp(System.currentTimeMillis()));
+                Employee em1 = map_data_from_server.get("Emp 1");
+                em1.getTimeLog();
+                tv_test_data.setText(em1.getTimeLog().getT_start());
+              /*  map_data_from_server.get("Emp 1").getTimeLog().setT_start(new Timestamp(System.currentTimeMillis()));
                 map_data_from_server.get("Emp 1").getTimeLog().setT_stop(new Timestamp(System.currentTimeMillis()));
                 String cnt =  map_data_from_server.get("Emp 1").getStr_Name()+"\n";
                  cnt += map_data_from_server.get("Emp 1").getTimeLog().getT_start().toString()+"\n";
                 cnt += map_data_from_server.get("Emp 1").getTimeLog().getT_stop().toString()+"\n";
-                tv_test_data.setText(cnt);
+                tv_test_data.setText(cnt);*/
 /*
                 List<MockModel> map_data_from_server = response.body();
                 for(MockModel mockModel : map_data_from_server){
@@ -91,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
                     tv_test_data.setText(content); */
 
-                tv_test_data.setText("asjdfkadsfjladskjf");
+               // tv_test_data.setText("asjdfkadsfjladskjf");
             }
 
             @Override

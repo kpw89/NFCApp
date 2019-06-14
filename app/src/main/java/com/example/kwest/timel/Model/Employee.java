@@ -1,5 +1,7 @@
 package com.example.kwest.timel.Model;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Timestamp;
@@ -8,7 +10,9 @@ public class Employee {
 
 
   //  private ArrayList<TimeLog> timelog;
+    @Expose
     private TimeLog timeLog;
+    @Expose
     private String str_Name;
 
     public Employee(TimeLog timeLog, String str_Names){
