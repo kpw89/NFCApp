@@ -50,26 +50,26 @@ public class MainActivity extends AppCompatActivity {
                 //"https://jsonplaceholder.typicode.com/"
 
                 .baseUrl("http://192.168.188.21:8080/")         //base url
-                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addConverterFactory(GsonConverterFactory.create())
                 .client(client.build())
                 .build();
 
         JsonAPI jsonAPI = retrofit.create(JsonAPI.class);               //pass json api
 
 //CALL TO SERVER
-        Call<HashMap<String, Employee>> call = jsonAPI.getData();
-        call.enqueue(new Callback<HashMap<String, Employee>>() {
+        Call<Employee> call = jsonAPI.getData();
+        call.enqueue(new Callback<Employee>() {
             @Override                                                       //MockModel
-            public void onResponse(Call<HashMap<String, Employee>> call, Response<HashMap<String, Employee>> response) {
+            public void onResponse(Call<Employee> call, Response<Employee> response) {
 
                 if(!response.isSuccessful()){
                     Toast.makeText(getApplicationContext(),"Code "+response.code() ,Toast.LENGTH_SHORT ).show();
                     return;
                 }
-                Map<String,Employee> map_data_from_server = response.body();
-                Employee em1 = map_data_from_server.get("Emp 1");
-                em1.getTimeLog();
-                tv_test_data.setText(em1.getTimeLog().getT_start());
+                Employee map_data_from_server = response.body();
+                Employee em1 = map_data_from_server;
+                em1.getTimeLogString();
+                tv_test_data.setText(em1.getTimeLogString().getT_start());
               /*  map_data_from_server.get("Emp 1").getTimeLog().setT_start(new Timestamp(System.currentTimeMillis()));
                 map_data_from_server.get("Emp 1").getTimeLog().setT_stop(new Timestamp(System.currentTimeMillis()));
                 String cnt =  map_data_from_server.get("Emp 1").getStr_Name()+"\n";
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<HashMap<String, Employee>> call, Throwable t) {
+            public void onFailure(Call<Employee> call, Throwable t) {
                 if(t instanceof IOException){
                     Toast.makeText(getApplicationContext(), "network failure",Toast.LENGTH_LONG ).show();
                     tv_test_data.setText(t.getMessage());

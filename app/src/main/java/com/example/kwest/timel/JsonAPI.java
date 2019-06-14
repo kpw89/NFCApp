@@ -20,6 +20,6 @@ public interface JsonAPI {
     //<HashMap<String, Employee>>
 
     @GET("LogWork/all")
-    Call<HashMap<String, Employee>> getData();
+    Call<Employee> getData();
 
 }

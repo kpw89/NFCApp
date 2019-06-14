@@ -10,28 +10,23 @@ public class Employee {
 
 
   //  private ArrayList<TimeLog> timelog;
+  @Expose
+  private String str_Name;
     @Expose
-    private TimeLog timeLog;
-    @Expose
-    private String str_Name;
+    private TimeLogString timeLogString;
 
-    public Employee(TimeLog timeLog, String str_Names){
-        this.timeLog=timeLog;
+
+    public Employee(TimeLogString timeLog, String str_Names){
+        this.timeLogString=timeLog;
         this.str_Name=str_Names;
     }
 
-
-    public TimeLog getTimeLog() {
-        return timeLog;
+    public TimeLogString getTimeLogString() {
+        return timeLogString;
     }
 
-    public void setTimeLog(TimeLog timeLog) {
-        this.timeLog = timeLog;
-    }
-
-    public  Employee(String str_Name){
-        this.timeLog=timeLog;
-        this.str_Name = str_Name;
+    public void setTimeLogString(TimeLogString timeLogString) {
+        this.timeLogString = timeLogString;
     }
 
     public String getStr_Name() {
@@ -41,13 +36,4 @@ public class Employee {
     public void setStr_Name(String str_Name) {
         this.str_Name = str_Name;
     }
-
-
-   // public List<TimeLog> getTimelog() {
-  //      return timelog;
-  //  }
-
-  /*  public void setTimelog(ArrayList<TimeLog> timelog) {
-        this.timelog = timelog;
-    }*/
 }

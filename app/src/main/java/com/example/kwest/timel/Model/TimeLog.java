@@ -7,16 +7,16 @@ import java.sql.Timestamp;
 public class TimeLog {
 //timestamp
     @Expose
-    private String t_start;
+    private Timestamp t_start;
     @Expose
-    private String t_stop;
+    private Timestamp t_stop;
 
-    public TimeLog(String t_start,String t_stop){
+    public TimeLog(Timestamp t_start,Timestamp t_stop){
         this.t_start=t_start;
         this.t_stop=t_stop;
     }
 
-    public String getT_start() {
+ /*   public String getT_start() {
         return t_start;
     }
 
@@ -32,8 +32,8 @@ public class TimeLog {
         this.t_stop = t_stop;
     }
 
+*/
 
-/*
     public Timestamp getT_start() {
         return t_start;
     }
@@ -46,5 +46,5 @@ public class TimeLog {
     public void setT_stop(Timestamp t_stop) {
         this.t_stop = t_stop;
     }
-*/
+
 }
