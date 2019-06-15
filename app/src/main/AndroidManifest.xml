@@ -19,7 +19,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".Em1"></activity>
+        <activity android:name=".Em1" />
+        <activity android:name=".Model.Em2" />
+        <activity android:name=".Em2" />
+        <activity android:name=".Em3"></activity>
     </application>
 
 </manifest>
