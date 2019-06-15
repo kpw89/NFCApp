@@ -9,6 +9,7 @@ import com.example.kwest.timel.Model.Employee;
 import com.example.kwest.timel.Model.MockJson;
 import com.example.kwest.timel.Model.MockModel;
 import com.example.kwest.timel.Model.TimeLog;
+import com.example.kwest.timel.Tools.TempStore;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -25,6 +26,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Url;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -57,7 +59,11 @@ public class MainActivity extends AppCompatActivity {
         JsonAPI jsonAPI = retrofit.create(JsonAPI.class);               //pass json api
 
 //CALL TO SERVER
-        Call<Employee> call = jsonAPI.getData();
+        String str_url = "LogWork/employee/"+TempStore.getTempStore().getId()+"/"
+                +TempStore.getTempStore().getPwd();
+
+
+        Call<Employee> call = jsonAPI.getData(str_url);
         call.enqueue(new Callback<Employee>() {
             @Override
             public void onResponse(Call<Employee> call, Response<Employee> response) {
@@ -66,35 +72,15 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Code "+response.code() ,Toast.LENGTH_SHORT ).show();
                     return;
                 }
+                String allTimes="";
                 Employee map_data_from_server = response.body();
                 Employee em1 = map_data_from_server;
-                em1.getTimeLogString();
-                tv_test_data.setText(em1.getTimeLogString().get(0).getT_start());
-              /*  map_data_from_server.get("Emp 1").getTimeLog().setT_start(new Timestamp(System.currentTimeMillis()));
-                map_data_from_server.get("Emp 1").getTimeLog().setT_stop(new Timestamp(System.currentTimeMillis()));
-                String cnt =  map_data_from_server.get("Emp 1").getStr_Name()+"\n";
-                 cnt += map_data_from_server.get("Emp 1").getTimeLog().getT_start().toString()+"\n";
-                cnt += map_data_from_server.get("Emp 1").getTimeLog().getT_stop().toString()+"\n";
-                tv_test_data.setText(cnt);*/
-/*
-                List<MockModel> map_data_from_server = response.body();
-                for(MockModel mockModel : map_data_from_server){
-                    String content ="";
-                    content+="userid "+ mockModel.getUserId() +"\n";
-                    content+="id "+ mockModel.getId() +"\n";
-                    content+="title "+ mockModel.getTitle() +"\n";
-                    content+="body "+mockModel.getBody()+"\n\n";
-                    tv_test_data.append(content);
-                }*/
+                for(int i = 0; i<em1.getTimeLogString().size();i++){
+                    allTimes+=em1.getTimeLogString().get(i).getT_start()+"\n";
+                    allTimes+=em1.getTimeLogString().get(i).getT_stop()+"\n\n";
+                }
+                tv_test_data.setText(allTimes);
 
-           /*     MockJson map_data_from_server = response.body();
-                String content="";
-                content+= map_data_from_server.getName1();
-                content+= map_data_from_server.getName2();
-
-                    tv_test_data.setText(content); */
-
-               // tv_test_data.setText("asjdfkadsfjladskjf");
             }
 
             @Override

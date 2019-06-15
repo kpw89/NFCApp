@@ -11,15 +11,14 @@ import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Url;
 
 public interface JsonAPI {
 
-    //<ArrayList<Map<String,Employee>>>
-    //Call<List<Post>>
-    //Call<MockJson>
     //<HashMap<String, Employee>>
+    //("LogWork/all")
 
-    @GET("LogWork/all")
-    Call<Employee> getData();
+    @GET
+    Call<Employee> getData(@Url String url);
 
 }
