@@ -69,7 +69,10 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<Employee> call, Response<Employee> response) {
 
                 if(!response.isSuccessful()){
-                    Toast.makeText(getApplicationContext(),"Code "+response.code() ,Toast.LENGTH_SHORT ).show();
+                    if(response.code()==403)
+                    Toast.makeText(getApplicationContext(),"Employee not authorized" ,Toast.LENGTH_SHORT ).show();
+                    if(response.code()==401)
+                        Toast.makeText(getApplicationContext(),"Incorrect password" ,Toast.LENGTH_SHORT ).show();
                     return;
                 }
                 String allTimes="";

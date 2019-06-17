@@ -26,15 +26,16 @@
             android:orientation="vertical"
             >
 
-            <TextView
-                android:layout_marginBottom="30dp"
-                android:textAlignment="center"
+            <EditText
+                android:id="@+id/edit_user"
+                android:layout_marginBottom="20dp"
+                android:layout_gravity="center"
+                android:hint="Employee Name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Enter password"
-                android:textSize="20dp"/>
+                android:layout_height="80dp" />
 
             <EditText
+                android:hint="Password"
                 android:id="@+id/edit_pwd_em1"
                 android:layout_marginBottom="30dp"
                 android:layout_gravity="center"
