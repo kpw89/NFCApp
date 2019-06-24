@@ -21,13 +21,7 @@ public class Em1 extends AppCompatActivity {
     }
 
     public void getPwd(View view){
-        if(editText_user.getText().toString().equals("Em1"))
-            TempStore.getTempStore().setId("0");
-        else if (editText_user.getText().toString().equals("Em2"))
-            TempStore.getTempStore().setId("1");
-        else if (editText_user.getText().toString().equals("Em3"))
-            TempStore.getTempStore().setId("3");
-        else TempStore.getTempStore().setId(editText_user.getText().toString());
+        TempStore.getTempStore().setId(editText_user.getText().toString());
         TempStore.getTempStore().setPwd(editText.getText().toString());
         startActivity(new Intent(getApplicationContext(),MainActivity.class));
     }

@@ -22,7 +22,8 @@
         <activity android:name=".Start" />
         <activity android:name=".Model.Em2" />
         <activity android:name=".Em2" />
-        <activity android:name=".Em3"></activity>
+        <activity android:name=".Em3" />
+        <activity android:name=".Admin"></activity>
     </application>
 
 </manifest>
